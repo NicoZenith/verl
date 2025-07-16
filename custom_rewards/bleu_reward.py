@@ -1,7 +1,7 @@
 from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 import re
 
-def compute_score(data_source, solution_str, ground_truth):
+def compute_score(data_source, solution_str, ground_truth, extra_info=None):
     """
     Params follow veRL's RewardManager contract.
     `solution_str`  – detokenized LLM output for one sample
