@@ -165,7 +165,7 @@ PY
       actor_rollout_ref.rollout.n=8 \
       actor_rollout_ref.rollout.name=vllm \
       actor_rollout_ref.rollout.tensor_model_parallel_size=1 \
-      custom_reward_function.path="$WORK_DIR/custom_rewards/radgraph_reward.py" \
+      custom_reward_function.path="$WORK_DIR/custom_rewards/bleu_reward.py" \
       custom_reward_function.name=compute_score \
       trainer.n_gpus_per_node=4 \
       trainer.nnodes=$SLURM_NNODES \

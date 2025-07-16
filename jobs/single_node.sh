@@ -8,18 +8,12 @@
 unset ROCR_VISIBLE_DEVICES
 set -x
 ENGINE=${1:-vllm}
-# If you are using vllm<=0.6.3, you might need to set the following environment variable to avoid bugs:
-# export VLLM_ATTENTION_BACKEND=XFORMERS
-# export VLLM_USE_PYTORCH_BACKEND=1
-#unset ROCR_VISIBLE_DEVICES
+
 export NCCL_DEBUG=WARN
 export HYDRA_FULL_ERROR=1
 export VLLM_WORKER_MULTIPROC_METHOD=spawn
 export VLLM_USE_MULTIPROC=1
-#export NCCL_IB_DISABLE=1
-#export NCCL_NET_PLUGIN=none
-#export NCCL_NET=socket
-#export NCCL_SOCKET_IFNAME=$(hostname -I | awk '{print $1}')
+
 export WORK_DIR=$SCRATCH/code/verl
 cd $WORK_DIR
 pip install nltk
@@ -58,7 +52,7 @@ python3 -m verl.trainer.main_ppo \
     actor_rollout_ref.ref.log_prob_micro_batch_size_per_gpu=16 \
     actor_rollout_ref.ref.fsdp_config.param_offload=True \
     algorithm.use_kl_in_reward=False \
-    custom_reward_function.path=$WORK_DIR/custom_rewards/radgraph_reward.py \
+    custom_reward_function.path=$WORK_DIR/custom_rewards/bleu_reward.py \
     custom_reward_function.name=compute_score \
     trainer.critic_warmup=0 \
     trainer.logger=['console','wandb'] \
